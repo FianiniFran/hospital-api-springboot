@@ -22,14 +22,8 @@ public class PatientService implements IPatientService {
 	}
 
 	@Override
-	public Page<Patient> patientList(Pageable pageable) {
-		Page<Patient> page = patRepo.findAll(
-//				PageRequest.of(
-//						pageable.getPageNumber(),
-//						pageable.getPageSize(),
-//						pageable.getSortOr(Sort.by(Sort.Direction.ASC, "id"))
-//					)
-				pageable);
+	public Page<Patient> listPatients(Pageable pageable) {
+		Page<Patient> page = patRepo.findAll(pageable);
 		return page;
 	}
 

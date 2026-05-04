@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Patient {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(name = "first_name")
 	private String name;
@@ -32,5 +32,5 @@ public class Patient {
 	private LocalDate birthDate;
 
 	@Column(name = "status")
-	private boolean isActive;
+	private Boolean isActive;
 }
