@@ -20,7 +20,7 @@ public class DoctorService implements IDoctorService{
 	}
 	
 	@Override
-	public Page<Doctor> DoctorList(Pageable pageable) {
+	public Page<Doctor> listDoctors(Pageable pageable) {
 		Page<Doctor> page = docRepo.findAll(pageable);
 		return page;
 	}
