@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Speciality {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String description;
 	

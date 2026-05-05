@@ -20,13 +20,13 @@ import lombok.NoArgsConstructor;
 public class Doctor {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(name="first_name")
 	private String name;
 	@Column(name="last_name")
 	private String surname;
 	@Column(name="status")
-	private boolean isActive;
+	private Boolean isActive;
 	
 	@ManyToOne
 	@JoinColumn(name="id_speciality", referencedColumnName="id")
