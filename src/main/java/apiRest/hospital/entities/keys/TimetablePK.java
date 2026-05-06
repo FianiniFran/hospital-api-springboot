@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class TimetablePK implements Serializable{
-	private LocalDate day;
+	private Integer day;
 	private LocalTime hourStart;
 	private LocalTime hourEnd;
 	

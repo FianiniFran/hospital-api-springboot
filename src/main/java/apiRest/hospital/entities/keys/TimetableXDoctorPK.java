@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class TimetableXDoctorPK implements Serializable {
-	private int doctor;
+	private Integer doctor;
 	private TimetablePK timetable;
 }

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Timetable {
 	@Id
 	@Column(name="_day")
-	private LocalDate day;
+	private Integer day;
 	@Id
 	@Column(name="hour_start")
 	private LocalTime hourStart;

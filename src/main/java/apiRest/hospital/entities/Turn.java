@@ -1,11 +1,14 @@
 package apiRest.hospital.entities;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,21 +24,20 @@ public class Turn {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer id;
-	
+	@Column(name="day_t")
+	private LocalDate day;
+	@Column(name="hour_start_t")
+	private LocalTime hourStart;
+	@Column(name="hour_end_t")
+	private LocalTime hourEnd;
 	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name="id_patient_T", referencedColumnName="id")
 	private Patient patient;
-		
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="id_doctor_T", referencedColumnName="id_doctor_TXD"),
-		@JoinColumn(name="day_T", referencedColumnName="day_TXD"),
-		@JoinColumn(name="hour_start_T", referencedColumnName="hour_start_TXD"),
-		@JoinColumn(name="hour_end_T", referencedColumnName="hour_end_TXD")
-	})
-	private TimetableXDoctor timetablesDoctor;
 	
+	@ManyToOne
+	@JoinColumn(name="id_doctor_t", referencedColumnName="id")
+	private Doctor doctor;
 
 }
