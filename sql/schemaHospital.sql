@@ -27,7 +27,7 @@ CREATE TABLE doctor(
 );
 
 CREATE TABLE timetable(
-    _day DATE,
+    _day INTEGER,
     hour_start TIME,
     hour_end TIME,
     PRIMARY KEY (_day, hour_start, hour_end)
@@ -35,7 +35,7 @@ CREATE TABLE timetable(
 
 CREATE TABLE timetableXdoctor(
     id_doctor_TXD INTEGER,
-    day_TXD DATE,
+    day_TXD INTEGER,
     hour_start_TXD TIME,
     hour_end_TXD TIME,
     PRIMARY KEY (id_doctor_TXD, day_TXD, hour_start_TXD, hour_end_TXD),
@@ -55,6 +55,5 @@ CREATE TABLE turn(
     PRIMARY KEY (id),
     UNIQUE (id_patient_T, id_doctor_T, day_T, hour_start_T, hour_end_T),
     CONSTRAINT fk_id_patient_T FOREIGN KEY (id_patient_T) REFERENCES patient(id),
-    CONSTRAINT fk_id_doctor_T FOREIGN KEY (id_doctor_T) REFERENCES doctor(id),
-    CONSTRAINT fk_timetable_T FOREIGN KEY (day_T, hour_start_T, hour_end_T) REFERENCES timetable(_day, hour_start, hour_end)
+    CONSTRAINT fk_id_doctor_T FOREIGN KEY (id_doctor_T) REFERENCES doctor(id)
 );
