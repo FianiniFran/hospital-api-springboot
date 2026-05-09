@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import apiRest.hospital.entities.Doctor;
 import apiRest.hospital.entities.TimetableXDoctor;
+import apiRest.hospital.entities.keys.TimetablePK;
 import apiRest.hospital.entities.keys.TimetableXDoctorPK;
 import apiRest.hospital.repositories.TimetableXDoctorRepository;
 import apiRest.hospital.services.ITimetableXDoctorService;
@@ -27,8 +29,9 @@ public class TimetableXDoctorService implements ITimetableXDoctorService{
 	}
 
 	@Override
-	public TimetableXDoctor getTimetableXDoctor(TimetableXDoctorPK timetableXDoctorPK) {
-		return timeXDocRepo.findById(timetableXDoctorPK).orElse(null);
+	public Page<TimetableXDoctor> getTimetableXDoctorByDoctor(int id, Pageable pageable) {
+		Page<TimetableXDoctor> page = timeXDocRepo.findByDoctor(new Doctor(id), pageable);
+		return page;
 	}
 
 	@Override
@@ -39,6 +42,19 @@ public class TimetableXDoctorService implements ITimetableXDoctorService{
 	@Override
 	public void deleteTimetableXDoctor(TimetableXDoctorPK timetableXDoctorPK) {
 		timeXDocRepo.deleteById(timetableXDoctorPK);		
+	}
+
+	@Override
+	public TimetableXDoctorPK createTXDPK(TimetableXDoctor txd) {
+		TimetablePK tPK = new TimetablePK(txd.getTimetable().getDay(), txd.getTimetable().getHourStart(), txd.getTimetable().getHourEnd());
+		TimetableXDoctorPK txdPK = new TimetableXDoctorPK(txd.getDoctor().getId(), tPK);
+		return txdPK;
+	}
+
+	@Override
+	public TimetableXDoctor getTimetableXDoctor(TimetableXDoctorPK txdPK) {
+		TimetableXDoctor txd = timeXDocRepo.findById(txdPK).orElse(null);
+		return txd;
 	}
 
 }

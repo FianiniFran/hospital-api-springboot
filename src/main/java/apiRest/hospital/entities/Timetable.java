@@ -1,6 +1,6 @@
 package apiRest.hospital.entities;
 
-import java.time.LocalDate;
+
 import java.time.LocalTime;
 
 import apiRest.hospital.entities.keys.TimetablePK;

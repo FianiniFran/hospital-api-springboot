@@ -17,7 +17,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name= "doctor")
-public class Doctor {
+public class Doctor {	
+	
+	public Doctor(Integer id) {
+		this.id = id;
+	}
+	
+	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer id;

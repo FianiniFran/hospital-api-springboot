@@ -4,6 +4,7 @@ package apiRest.hospital.entities;
 
 import apiRest.hospital.entities.keys.TimetableXDoctorPK;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
@@ -23,12 +24,12 @@ import lombok.NoArgsConstructor;
 @Table(name= "timetablexdoctor")
 public class TimetableXDoctor {
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_doctor_TXD", referencedColumnName="id")
 	private Doctor doctor;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
 		@JoinColumn(name="day_TXD", referencedColumnName="_day"),
 		@JoinColumn(name="hour_start_TXD", referencedColumnName="hour_start"),
