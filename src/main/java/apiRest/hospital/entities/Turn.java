@@ -40,4 +40,6 @@ public class Turn {
 	@JoinColumn(name="id_doctor_t", referencedColumnName="id")
 	private Doctor doctor;
 
+	@Column(name="status")
+	private Boolean isActive;
 }
