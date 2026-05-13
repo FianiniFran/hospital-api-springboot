@@ -3,13 +3,11 @@ package apiRest.hospital.servicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import apiRest.hospital.entities.Patient;
 import apiRest.hospital.services.IPatientService;
 import apiRest.hospital.repositories.PatientRepository;
-import org.springframework.data.domain.PageRequest;
 
 @Service
 public class PatientService implements IPatientService {
@@ -41,5 +39,4 @@ public class PatientService implements IPatientService {
 	public void deletePatient(int id) {
 		patRepo.deleteById(id);
 	}
-
 }

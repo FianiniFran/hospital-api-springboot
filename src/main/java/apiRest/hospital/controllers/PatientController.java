@@ -43,10 +43,10 @@ public class PatientController {
 	}
 	
 	@PostMapping
-	private ResponseEntity<Patient> save(@RequestBody Patient patient, UriComponentsBuilder ucb){
-		Patient pat = patService.savePatient(patient);
-		URI location = ucb.path("/api/v1/patient/{id}").buildAndExpand(pat.getId()).toUri();	
-		return ResponseEntity.created(location).build();
+	private ResponseEntity<Patient> post(@RequestBody Patient patient, UriComponentsBuilder ucb){
+			Patient pat = patService.savePatient(patient);
+			URI location = ucb.path("/api/v1/patient/{id}").buildAndExpand(pat.getId()).toUri();	
+			return ResponseEntity.created(location).build();
 	}
 	
 	@PutMapping("/{requestedId}")

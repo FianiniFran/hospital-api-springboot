@@ -7,13 +7,15 @@ CREATE TABLE patient(
     last_name VARCHAR(25),
     birth_date DATETIME,
     status BOOLEAN,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (first_name, last_name)
 );
 
 CREATE TABLE speciality(
     id INTEGER NOT NULL AUTO_INCREMENT,
     description VARCHAR(40),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (description)
 );
 
 CREATE TABLE doctor(
@@ -23,6 +25,7 @@ CREATE TABLE doctor(
     id_speciality INTEGER,
     status BOOLEAN,
     PRIMARY KEY (id),
+    UNIQUE (first_name, last_name, id_speciality),
     CONSTRAINT fk_id_speciality FOREIGN KEY (id_speciality) REFERENCES speciality(id)
 );
 

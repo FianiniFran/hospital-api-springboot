@@ -45,6 +45,7 @@ public class DoctorController {
 	@PostMapping
 	private ResponseEntity<Doctor> post(@RequestBody Doctor doctor, UriComponentsBuilder ucb){
 		Doctor doc = docService.saveDoctor(doctor);
+		
 		URI location = ucb.path("/api/v1/doctor/{id}").buildAndExpand(doc.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}

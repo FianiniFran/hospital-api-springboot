@@ -4,11 +4,10 @@ REST API for medical appointment management built with Spring Boot.
 
 ## Technologies
 - Java 21
-- Spring Boot 4.0.6
+- Spring Boot
 - Spring Data JPA
 - MySQL
 - Lombok
-- Spring Security
 
 ## Requirements
 - Java 21
