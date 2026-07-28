@@ -1,62 +1,128 @@
-CREATE DATABASE dbHospital;
-USE dbHospital;
+-- MySQL Workbench Forward Engineering
 
-CREATE TABLE patient(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(25),
-    last_name VARCHAR(25),
-    birth_date DATETIME,
-    status BOOLEAN,
-    PRIMARY KEY (id),
-    UNIQUE (first_name, last_name)
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE TABLE speciality(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    description VARCHAR(40),
-    PRIMARY KEY (id),
-    UNIQUE (description)
-);
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema dbhospital
+-- -----------------------------------------------------
 
-CREATE TABLE doctor(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(25),
-    last_name VARCHAR(25),
-    id_speciality INTEGER,
-    status BOOLEAN,
-    PRIMARY KEY (id),
-    UNIQUE (first_name, last_name, id_speciality),
-    CONSTRAINT fk_id_speciality FOREIGN KEY (id_speciality) REFERENCES speciality(id)
-);
+-- -----------------------------------------------------
+-- Schema dbhospital
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `dbhospital` DEFAULT CHARACTER SET utf8 ;
+USE `dbhospital` ;
 
-CREATE TABLE timetable(
-    _day INTEGER,
-    hour_start TIME,
-    hour_end TIME,
-    PRIMARY KEY (_day, hour_start, hour_end)
-);
+-- -----------------------------------------------------
+-- Table `dbhospital`.`speciality`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`speciality` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `description` (`description` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE timetableXdoctor(
-    id_doctor_TXD INTEGER,
-    day_TXD INTEGER,
-    hour_start_TXD TIME,
-    hour_end_TXD TIME,
-    PRIMARY KEY (id_doctor_TXD, day_TXD, hour_start_TXD, hour_end_TXD),
-    CONSTRAINT fk_id_doctor_TXD FOREIGN KEY (id_doctor_TXD) REFERENCES doctor(id),
-    CONSTRAINT fk_timetable_TXD FOREIGN KEY (day_TXD, hour_start_TXD, hour_end_TXD) REFERENCES timetable(_day, hour_start, hour_end)
-);
 
-CREATE TABLE turn(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    id_patient_T INTEGER,
-    id_doctor_T INTEGER,
-    day_T DATE,
-    hour_start_T TIME,
-    hour_end_T TIME,
-    description VARCHAR(50),
-    status BOOLEAN,
-    PRIMARY KEY (id),
-    UNIQUE (id_patient_T, id_doctor_T, day_T, hour_start_T, hour_end_T),
-    CONSTRAINT fk_id_patient_T FOREIGN KEY (id_patient_T) REFERENCES patient(id),
-    CONSTRAINT fk_id_doctor_T FOREIGN KEY (id_doctor_T) REFERENCES doctor(id)
-);
+-- -----------------------------------------------------
+-- Table `dbhospital`.`doctor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`doctor` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NULL DEFAULT NULL,
+  `last_name` VARCHAR(255) NULL DEFAULT NULL,
+  `id_speciality` INT(11) NULL DEFAULT NULL,
+  `status` TINYINT(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `first_name` (`first_name` ASC, `last_name` ASC, `id_speciality` ASC),
+  INDEX `fk_id_speciality` (`id_speciality` ASC),
+  CONSTRAINT `fk_id_speciality`
+    FOREIGN KEY (`id_speciality`)
+    REFERENCES `dbhospital`.`speciality` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dbhospital`.`patient`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`patient` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NULL DEFAULT NULL,
+  `last_name` VARCHAR(255) NULL DEFAULT NULL,
+  `birth_date` DATE NULL DEFAULT NULL,
+  `status` TINYINT(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `first_name` (`first_name` ASC, `last_name` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dbhospital`.`timetable`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`timetable` (
+  `id` INT(11) NOT NULL,
+  `_day` INT(11) NOT NULL,
+  `hour_start` TIME NOT NULL,
+  `hour_end` TIME NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dbhospital`.`timetablexdoctor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`timetablexdoctor` (
+  `id` INT(11) NOT NULL,
+  `id_doctor_TXD` INT(11) NOT NULL,
+  `id_timetable_TXD` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_timetablexdoctor_timetable1_idx` (`id_timetable_TXD` ASC),
+  INDEX `fk_id_doctor_TXD` (`id_doctor_TXD` ASC),
+  CONSTRAINT `fk_id_doctor_TXD`
+    FOREIGN KEY (`id_doctor_TXD`)
+    REFERENCES `dbhospital`.`doctor` (`id`),
+  CONSTRAINT `fk_timetablexdoctor_timetable1`
+    FOREIGN KEY (`id_timetable_TXD`)
+    REFERENCES `dbhospital`.`timetable` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dbhospital`.`turn`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbhospital`.`turn` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_patient_T` INT(11) NULL DEFAULT NULL,
+  `id_doctor_T` INT(11) NULL DEFAULT NULL,
+  `turn_date` DATE NULL DEFAULT NULL,
+  `turn_hour_start` TIME NULL DEFAULT NULL,
+  `turn_hour_end` TIME NULL DEFAULT NULL,
+  `description` VARCHAR(255) NULL DEFAULT NULL,
+  `status` TINYINT(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_patient_T` (`id_patient_T` ASC, `id_doctor_T` ASC),
+  INDEX `fk_id_doctor_T` (`id_doctor_T` ASC),
+  CONSTRAINT `fk_id_doctor_T`
+    FOREIGN KEY (`id_doctor_T`)
+    REFERENCES `dbhospital`.`doctor` (`id`),
+  CONSTRAINT `fk_id_patient_T`
+    FOREIGN KEY (`id_patient_T`)
+    REFERENCES `dbhospital`.`patient` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
