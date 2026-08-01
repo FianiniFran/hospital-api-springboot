@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,23 +28,12 @@ public class TimetableXDoctor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@ManyToOne
 	@JoinColumn(name="id_timetable_TXD", referencedColumnName="id")
 	private Timetable timetable;
+	
+	@ManyToOne
 	@JoinColumn(name="id_doctor_TXD", referencedColumnName="id")
 	private Doctor doctor;
 	
-//	@Id
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name="id_doctor_TXD", referencedColumnName="id")
-//	private Doctor doctor;
-//	
-//	@Id
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumns({
-//		@JoinColumn(name="day_TXD", referencedColumnName="_day"),
-//		@JoinColumn(name="hour_start_TXD", referencedColumnName="hour_start"),
-//		@JoinColumn(name="hour_end_TXD", referencedColumnName="hour_end")
-//	})
-//	private Timetable timetable;
-
 }

@@ -52,28 +52,4 @@ public class Turn {
 	@JoinColumn(name="id_patient_T", referencedColumnName="id")
 	private Patient patient;
 	
-
-	
-	
-//	@Id
-//	@GeneratedValue(strategy= GenerationType.IDENTITY)
-//	private Integer id;
-//	@Column(name="day_t")
-//	private LocalDate day;
-//	@Column(name="hour_start_t")
-//	private LocalTime hourStart;
-//	@Column(name="hour_end_t")
-//	private LocalTime hourEnd;
-//	private String description;
-//	
-//	@ManyToOne
-//	@JoinColumn(name="id_patient_T", referencedColumnName="id")
-//	private Patient patient;
-//	
-//	@ManyToOne
-//	@JoinColumn(name="id_doctor_t", referencedColumnName="id")
-//	private Doctor doctor;
-//
-//	@Column(name="status")
-//	private Boolean isActive;
 }

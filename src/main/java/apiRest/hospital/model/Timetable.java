@@ -35,15 +35,5 @@ public class Timetable {
 	@Column(name="hour_end")
 	private LocalTime hourEnd;
 	
-	
-//	@Id
-//	@Column(name="_day")
-//	private Integer day;
-//	@Id
-//	@Column(name="hour_start")
-//	private LocalTime hourStart;
-//	@Id
-//	@Column(name="hour_end")
-//	private LocalTime hourEnd;
-
 }
+
